@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const path = require('node:path');
 
-const { authenticate } = require('@google-cloud/local-auth');
 const { forms } = require('@googleapis/forms');
 const { google } = require('googleapis');
 
+// Google Form ID
 const formID = '1WgMACOSRLxKKpJju6RJ9fxVv6mStaXZ5stcm22iGTtg';
 
 // Authenticate once
@@ -27,11 +27,11 @@ async function getAllResponses() {
 
     const formsClient = forms({
         version: 'v1',
-        auth,
+        auth
     });
 
     const result = await formsClient.forms.responses.list({
-        formId: formID,
+        formId: formID
     });
 
     return result.data;
@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
         res.json(data);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Error fetching google form data: " + err.message });
     }
 });
 

@@ -6,3 +6,10 @@ CREATE TABLE locations (
                            description TEXT,
                            hours TEXT
 );
+
+-- create table for rsvps
+CREATE TABLE rsvps (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        email TEXT NOT NULL UNIQUE,
+                        people INTEGER NOT NULL
+)
