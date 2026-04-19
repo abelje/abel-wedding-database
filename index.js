@@ -11,8 +11,8 @@ app.use(cors());
 // initialize db
 require('./db/database');
 
-const responsesRouter = require("./routes/get_responses");
-app.use('/responses', responsesRouter);
+const rsvpRouter = require("./routes/get_responses");
+app.use('/rsvp', rsvpRouter);
 
 // basic health check endpoint
 app.get("/health", (req, res) => {
