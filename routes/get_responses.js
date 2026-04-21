@@ -9,6 +9,8 @@ const { google } = require('googleapis');
 // Google Form ID
 const formID = '1WgMACOSRLxKKpJju6RJ9fxVv6mStaXZ5stcm22iGTtg';
 
+let lastUpdateDate = new Date();
+
 // Authenticate once
 async function getAuth() {
     const authClient = new google.auth.GoogleAuth({
@@ -37,28 +39,31 @@ async function getAllResponses() {
 
     return result.data;
 }
+async function getGoogleForms() {
+    const data = await getAllResponses();
 
+    const responses = data.responses
+
+    // delete data from table
+    db.prepare(`DELETE FROM rsvps`).run();
+    db.prepare(`DELETE FROM sqlite_sequence WHERE name='rsvps'`).run();
+
+    for (const response of responses) {
+
+        const email = response["respondentEmail"];
+        const people = response["answers"]["5d838dad"]["textAnswers"]["answers"]["0"]["value"];
+        // Insert the amount rsvp
+        const result = db.prepare(`
+        INSERT INTO rsvps (email, people)
+        VALUES (?, ?)
+    `).run(email, people);
+    }
+    lastUpdateDate = new Date();
+    return data;
+}
 router.get('/formsapi', async (req, res) => {
     try {
-        const data = await getAllResponses();
-
-        const responses = data.responses
-
-        // delete data from table
-        db.prepare(`DELETE FROM rsvps`).run();
-        db.prepare(`DELETE FROM sqlite_sequence WHERE name='rsvps'`).run();
-
-        for (const response of responses) {
-
-            const email = response["respondentEmail"];
-            const people = response["answers"]["5d838dad"]["textAnswers"]["answers"]["0"]["value"];
-            // Insert the amount rsvp
-            const result = db.prepare(`
-            INSERT INTO rsvps (email, people)
-            VALUES (?, ?)
-        `).run(email, people);
-        }
-
+        const data = await getGoogleForms();
         // return Google Form API Data
         res.json(data);
     }
@@ -69,14 +74,19 @@ router.get('/formsapi', async (req, res) => {
 });
 
 // get database rsvps data
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const responses = db.prepare(`
             SELECT id, email, people
             FROM rsvps
             ORDER BY id
 `       ).all();
-
+        // if greater than 24-48 hours, run /formsapi to get google information
+        let reset_limit = 24 * 60 * 60 * 1000; // 24 hours to milliseconds
+        if (Date.now() - lastUpdateDate  > reset_limit) {
+            console.log("Updating Database...")
+            const data = await getGoogleForms();
+        }
         res.json(responses);
     }
     catch (error) {

@@ -14,6 +14,9 @@ require('./db/database');
 const rsvpRouter = require("./routes/get_responses");
 app.use('/rsvp', rsvpRouter);
 
+const locationsRouter = require("./routes/get_locations");
+app.use('/locations', locationsRouter);
+
 // basic health check endpoint
 app.get("/health", (req, res) => {
     res.status(200).json({
