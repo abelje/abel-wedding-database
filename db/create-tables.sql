@@ -1,5 +1,5 @@
 -- create the table for locations
-DROP TABLE IF EXISTS locations;
+-- DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
                            id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,13 +20,13 @@ CREATE TABLE rsvps (
 
 -- create table for registry
 CREATE TABLE registry (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        name TEXT NOT NULL
 );
 
 -- create table of registry items array
-CREATE TABLE items_values (
+CREATE TABLE registry_items (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        item_id INTEGER,
                         value TEXT,
-                        FOREIGN KEY (item_id) REFERENCES registry(id)
+                        FOREIGN KEY (id) REFERENCES registry(id)
 );

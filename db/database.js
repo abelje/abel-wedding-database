@@ -12,6 +12,25 @@ db.exec(`
                                  email TEXT NOT NULL UNIQUE,
                                  people INTEGER NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS locations (
+                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 title TEXT NOT NULL,
+                                 name TEXT NOT NULL,
+                                 address TEXT NOT NULL,
+                                 time TEXT,
+                                 image TEXT,
+                                 description TEXT
+    );
+    CREATE TABLE IF NOT EXISTS registry (
+                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 name TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS registry_items (
+                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 item_id INTEGER,
+                                 value TEXT,
+                                 FOREIGN KEY (item_id) REFERENCES registry(id)
+    );
 
  `);
 
