@@ -21,12 +21,6 @@ CREATE TABLE rsvps (
 -- create table for registry
 CREATE TABLE registry (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        name TEXT NOT NULL
-);
-
--- create table of registry items array
-CREATE TABLE registry_items (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        value TEXT,
-                        FOREIGN KEY (id) REFERENCES registry(id)
+                        name TEXT NOT NULL,
+                        link TEXT NOT NULL
 );

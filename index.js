@@ -17,6 +17,9 @@ app.use('/rsvp', rsvpRouter);
 const locationsRouter = require("./routes/get_locations");
 app.use('/locations', locationsRouter);
 
+const registryRouter = require("./routes/get_registry");
+app.use('/registry', registryRouter);
+
 // basic health check endpoint
 app.get("/health", (req, res) => {
     res.status(200).json({

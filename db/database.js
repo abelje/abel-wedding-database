@@ -23,15 +23,10 @@ db.exec(`
     );
     CREATE TABLE IF NOT EXISTS registry (
                                  id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                 name TEXT NOT NULL
+                                 name TEXT NOT NULL,
+                                 link TEXT NOT NULL
     );
-    CREATE TABLE IF NOT EXISTS registry_items (
-                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                 item_id INTEGER,
-                                 value TEXT,
-                                 FOREIGN KEY (item_id) REFERENCES registry(id)
-    );
-
+    
  `);
 
 module.exports = db;
