@@ -12,7 +12,21 @@ db.exec(`
                                  email TEXT NOT NULL UNIQUE,
                                  people INTEGER NOT NULL
     );
-
+    CREATE TABLE IF NOT EXISTS locations (
+                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 title TEXT NOT NULL,
+                                 name TEXT NOT NULL,
+                                 address TEXT NOT NULL,
+                                 time TEXT,
+                                 image TEXT,
+                                 description TEXT
+    );
+    CREATE TABLE IF NOT EXISTS registry (
+                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 name TEXT NOT NULL,
+                                 link TEXT NOT NULL
+    );
+    
  `);
 
 module.exports = db;
