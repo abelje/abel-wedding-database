@@ -66,6 +66,7 @@ router.get('/formsapi', async (req, res) => {
         const data = await getGoogleForms();
         // return Google Form API Data
         res.json(data);
+        lastUpdateDate = new Date();
     }
     catch (err) {
         console.error(err);
