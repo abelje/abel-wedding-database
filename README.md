@@ -47,8 +47,6 @@ This database is used with my Wedding Website Project. That project is linked [h
 - GET '/api/rsvp/formsapi' - returns Google Forms json and updates database with people and email
 
 ## Setup
-Holds data required to populate the amount of people rsvp'd from a google form.
-
 Requirements to get Google Cloud to work for Google Forms API:
     
 - Follow documentation on how to create a new Project on Google Cloud ([info](https://developers.google.com/workspace/guides/create-project)) and enable apis. For example, Forms API is [here](https://developers.google.com/workspace/guides/enable-apis)
