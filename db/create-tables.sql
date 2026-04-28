@@ -14,7 +14,7 @@ CREATE TABLE locations (
 -- create table for rsvps
 CREATE TABLE rsvps (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        email TEXT NOT NULL UNIQUE,
+                        email TEXT NOT NULL,
                         people INTEGER NOT NULL
 );
 

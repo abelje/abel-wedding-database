@@ -9,7 +9,7 @@ db.pragma("foreign_keys = ON");
 db.exec(`
     CREATE TABLE IF NOT EXISTS rsvps (
                                  id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                 email TEXT NOT NULL UNIQUE,
+                                 email TEXT NOT NULL,
                                  people INTEGER NOT NULL
     );
     CREATE TABLE IF NOT EXISTS locations (
